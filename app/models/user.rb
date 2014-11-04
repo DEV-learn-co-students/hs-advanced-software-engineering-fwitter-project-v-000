@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
   has_many  :follows, :through => :followers, :source => :follower
   has_many  :followings
   has_many  :followed_users, :through => :followings, :source => :following
+  validates :email, uniqueness: true
 end
