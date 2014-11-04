@@ -17,15 +17,12 @@ class ApplicationController < Sinatra::Application
   end
 
   get '/tweets' do
-    # Tweet.new("Vanessa", "My first tweet!!! SO EXCITING OMG!!!")
-    # Tweet.new("Vanessa", "My second tweet!!! Still super exciting!!!")
     @tweets = Tweet.all
     @users = User.all
     erb :tweets
   end
 
   post '/tweets' do
-    # Tweet.new(params[:user], params[:status])
     Tweet.create(:user_id => params[:user_id], :status => params[:status])
     redirect '/tweets'
   end
@@ -33,11 +30,6 @@ class ApplicationController < Sinatra::Application
   get '/users' do
     @users = User.all
     erb :users
-  end
-
-  post '/users' do
-    User.create(:name => params[:username])
-    redirect '/users'
   end
 
   get '/users/:id' do
@@ -74,7 +66,7 @@ class ApplicationController < Sinatra::Application
 
   post '/sign-up' do
     password_hash = BCrypt::Password.create(params[:password])
-    @user = User.new(name: params[:username], email: params[:email], password: password_hash)
+    @user = User.new(name: params[:name], email: params[:email], password: password_hash)
     if @user.save
       session[:id] = password_hash
       session[:error] = nil
@@ -87,6 +79,7 @@ class ApplicationController < Sinatra::Application
 
   get '/sign-out' do
     session[:id] = nil
+    session[:error] = nil
     redirect '/tweets'
   end
 end
