@@ -1,6 +1,7 @@
 require_relative "../../config/environment"
 
 class ApplicationController < Sinatra::Base
+  register Sinatra::ActiveRecordExtension
 
   configure do
     set :public_folder, 'public'
@@ -25,38 +26,6 @@ class ApplicationController < Sinatra::Base
     def error
       session[:error]
     end
-  end
-
-  get '/tweets' do
-    @tweets = Tweet.all
-    @users = User.all
-    erb :tweets
-  end
-
-  post '/tweets' do
-    Tweet.create(:user_id => params[:user_id], :status => params[:status])
-    redirect '/tweets'
-  end
-
-  get '/users' do
-    @users = User.all
-    erb :users
-  end
-
-  get '/users/:id' do
-    @user = User.find(params[:id])
-    @tweets = @user.tweets
-    @followers = @user.follows
-    @followings = @user.followed_users
-    erb :user
-  end
-
-  post '/users/follow' do 
-    @following = User.find(params[:following_id])
-    Follower.create(user_id: params[:following_id], follower_id: params[:follower_id])
-    Following.create(user_id: params[:follower_id], following_id: params[:following_id])
-    
-    redirect "/users/#{@following.id}"
   end
 
   get '/sign-in' do
@@ -93,4 +62,6 @@ class ApplicationController < Sinatra::Base
     session[:error] = nil
     redirect '/tweets'
   end
+
+
 end
