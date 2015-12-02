@@ -16,3 +16,5 @@ Student facing repositories are also linked-to below.
 [Day 4 - ActiveRecord Relationships](https://github.com/learn-co-curriculum/hs-fwitter-activerecord-relationships)
 
 [Day 5 - Session and Authorization](https://github.com/learn-co-curriculum/hs-fwitter-sessions-authorization)
+
+<a href='https://learn.co/lessons/hs-advanced-software-engineering-fwitter-project' data-visibility='hidden'>View this lesson on Learn.co</a>
